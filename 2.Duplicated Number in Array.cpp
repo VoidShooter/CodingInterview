@@ -10,20 +10,23 @@ public:
     // Return value:       true if the input is valid, and there are some duplications in the array number
     //                     otherwise false
     bool duplicate(int numbers[], int length, int* duplication) {
-        for(int i=0;i<length-1;i++){
-            for(int j=i+1;j<length;j++){
-                if (numbers[i]==numbers[j])
-                {
+        int temp;
+        for(int i=0;i<length;i++){
+            while(numbers[i]!=i){
+                if(numbers[i]==numbers[numbers[i]]){
                     *duplication = numbers[i];
                     return true;
-                };
+                }
+                temp = numbers[numbers[i]];
+                numbers[numbers[i]] = numbers[i];
+                numbers[i] = temp;
             }
         }
         return false;
     }
 };
 int main() {
-    int input[]={2,3,2,0,2,5,3};
+    int input[]={2,1,3,0,4};
     int len = sizeof(input) / sizeof(input[0]);
     int duplication;
     cout<<Solution().duplicate(input, len, &duplication)<<endl;
