@@ -21,10 +21,10 @@ public:
     }
     void PrintNumber(char* number){
         int begin=0;
-        while(number[begin] != ('/0') && number[begin]=='0'){
+        while(number[begin]!=('/0') && number[begin]=='0'){
             begin++;
         }
-        cout<<number+begin<<endl;
+        if(begin!=strlen(number)) cout<<number+begin<<endl;
     }
 };
 int main() {
