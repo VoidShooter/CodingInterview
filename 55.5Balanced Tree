@@ -1,0 +1,41 @@
+#include<algorithm>
+#include<iostream>
+using namespace std;
+struct TreeNode {
+	int val;
+	TreeNode *left;
+	TreeNode *right;
+	TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+};
+class Solution {
+public:
+	bool IsBalanced_Solution(TreeNode* pRoot) {
+		int depth;
+		return IsBalances_Core(pRoot, depth);
+	}
+private:
+	bool IsBalances_Core(TreeNode* pRoot, int& depth) {
+		if (!pRoot) {
+			depth = 0;
+			return true;
+		}
+		int left, right;
+		bool result = IsBalances_Core(pRoot->left, left) && IsBalances_Core(pRoot->right, right);
+		depth = max(left, right)+1;
+		if (result&&left - right >= -1 && left - right <= 1)
+			return true;
+		else
+			return false;
+	}
+};
+//      6
+//     4 7
+//    2 5
+//   1 3
+int main() {
+	TreeNode t1(6), t2(4), t3(7), t4(2), t5(5), t6(1), t7(3);
+	t1.left = &t2; t1.right = &t3;
+	t2.left = &t4; t2.right = &t5;
+	t4.left = &t6; t4.right = &t7;
+	cout << Solution().IsBalanced_Solution(&t1);
+}
